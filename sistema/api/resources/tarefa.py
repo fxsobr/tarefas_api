@@ -1,8 +1,7 @@
 from flask import Blueprint
-from flask_restful import Resource
 from flask_restful import Resource, Api
 
-tarefa_blueprint = Blueprint('tarefa', __name__)
+tarefa_blueprint = Blueprint("tarefa", __name__)
 api = Api(tarefa_blueprint)
 
 
@@ -11,4 +10,4 @@ class TarefaList(Resource):
         return "Olá Mundo", 200
 
 
-api.add_resource(TarefaList, '/tarefas')
+api.add_resource(TarefaList, "/tarefas")

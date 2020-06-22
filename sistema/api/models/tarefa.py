@@ -8,4 +8,3 @@ class Tarefa(db.Model):
     titulo = db.Column(db.String(50), nullable=False)
     descricao = db.Column(db.String(100), nullable=False)
     data_expiracao = db.Column(db.Date, nullable=False)
-
