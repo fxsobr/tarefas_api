@@ -1,3 +1,5 @@
+from typing import List
+
 from sistema import db
 
 
@@ -8,3 +10,15 @@ class TarefaModel(db.Model):
     titulo = db.Column(db.String(50), nullable=False)
     descricao = db.Column(db.String(100), nullable=False)
     data_expiracao = db.Column(db.Date, nullable=False)
+
+    @classmethod
+    def find_all(cls) -> List["TarefaModel"]:
+        return cls.query.all()
+
+    def save_to_db(self) -> None:
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self) -> None:
+        db.session.delete(self)
+        db.session.commit()
