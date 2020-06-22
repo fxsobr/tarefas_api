@@ -1,5 +1,9 @@
+from flask import Blueprint
 from flask_restful import Resource
-from sistema import api
+from flask_restful import Resource, Api
+
+tarefa_blueprint = Blueprint('tarefa', __name__)
+api = Api(tarefa_blueprint)
 
 
 class TarefaList(Resource):

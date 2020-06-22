@@ -12,16 +12,15 @@ services:
     ports:
       - 5000:5000
     environment:
-      - FLASK_APP=sistema/__init__.py
       - FLASK_ENV=development
       - APP_SETTINGS=sistema.config.DevelopmentConfig
-      - DATABASE_DEV_URL=postgresql://postgres:postgres@users-db:5432/users_dev
+      - DATABASE_DEV_URL=postgresql://postgres:postgres@tarefas-db:5432/tarefas_dev
     depends_on:
       - tarefas-db
 
   tarefas-db:
     build:
-      context: db
+      context: ./db
       dockerfile: Dockerfile
     expose:
       - 5432
