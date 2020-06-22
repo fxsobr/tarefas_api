@@ -3,8 +3,10 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
+ma = Marshmallow()
 migrate = Migrate()
 
 
@@ -14,6 +16,7 @@ def create_app(script_info=None):
     app.config.from_object(app_settings)
 
     db.init_app(app)
+    ma.init_app(app)
     migrate.init_app(app, db)
 
     from sistema.api.resources.tarefa import tarefa_blueprint
@@ -22,6 +25,6 @@ def create_app(script_info=None):
 
     @app.shell_context_processor
     def ctx():
-        return {"app": app, "db": db, "migrate": migrate}
+        return {"app": app, "db": db, 'ma': ma ,"migrate": migrate}
 
     return app
