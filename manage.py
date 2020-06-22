@@ -3,7 +3,7 @@ import sys
 from flask.cli import FlaskGroup
 
 from sistema import create_app, db
-from sistema.api.models.tarefa import Tarefa
+from sistema.api.models.tarefamodel import TarefaModel
 
 
 app = create_app()

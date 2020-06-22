@@ -1,7 +1,7 @@
 from sistema import db
 
 
-class Tarefa(db.Model):
+class TarefaModel(db.Model):
     __tablename__ = "tarefa"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
