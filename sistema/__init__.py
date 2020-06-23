@@ -20,11 +20,13 @@ def create_app(script_info=None):
     migrate.init_app(app, db)
 
     from sistema.api.resources.tarefa import tarefa_blueprint
+    from sistema.api.resources.projeto import projeto_blueprint
 
     app.register_blueprint(tarefa_blueprint)
+    app.register_blueprint(projeto_blueprint)
 
     @app.shell_context_processor
     def ctx():
-        return {"app": app, "db": db, 'ma': ma ,"migrate": migrate}
+        return {"app": app, "db": db, "ma": ma, "migrate": migrate}
 
     return app
