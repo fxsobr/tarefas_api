@@ -9,7 +9,9 @@ from sistema.api.schemas.tarefa import TarefaSchema
 tarefa_blueprint = Blueprint("tarefa", __name__)
 api = Api(tarefa_blueprint)
 
-ERRO_INSERT = "Ocorreu um erro ao inserir a tarefa!"
+ERRO_INSERT = "Ocorreu um erro ao inserir a tarefa."
+TAREFA_NOT_FOUND = "Tarefa não encontrada."
+TAREFA_EXCLUIDA = "Tarefa excluída com sucesso."
 
 tarefa_schema = TarefaSchema()
 tarefa_list_schema = TarefaSchema(many=True)
@@ -33,6 +35,27 @@ class Tarefa(Resource):
         return tarefa_schema.dump(tarefa), 201
 
 
+class TarefaDetalhes(Resource):
+    @classmethod
+    def get(cls, tarefa_id: int):
+        tarefa = TarefaModel.find_by_id(tarefa_id)
+        if not tarefa:
+            return {"mensagem": TAREFA_NOT_FOUND}, 404
+        return tarefa_schema.dump(tarefa), 200
+
+    @classmethod
+    def put(cls, tarefa_id: int):
+        pass
+
+    @classmethod
+    def delete(cls, tarefa_id: int):
+        tarefa = TarefaModel.find_by_id(tarefa_id)
+        if not tarefa:
+            return {"mensagem": TAREFA_NOT_FOUND}, 404
+        tarefa.delete_from_db()
+        return {"mensagem": TAREFA_EXCLUIDA}, 200
+
+
 class TarefaList(Resource):
     @classmethod
     def get(cls):
@@ -40,4 +63,5 @@ class TarefaList(Resource):
 
 
 api.add_resource(Tarefa, "/tarefa")
+api.add_resource(TarefaDetalhes, "/tarefa/<int:tarefa_id>")
 api.add_resource(TarefaList, "/tarefas")
