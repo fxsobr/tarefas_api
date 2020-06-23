@@ -23,7 +23,6 @@ class Tarefa(Resource):
         tarefa_json = request.get_json()
         try:
             tarefa = tarefa_schema.load(tarefa_json)
-            print(tarefa)
         except ValidationError as err:
             return err.messages, 400
 
@@ -45,7 +44,29 @@ class TarefaDetalhes(Resource):
 
     @classmethod
     def put(cls, tarefa_id: int):
-        pass
+        tarefa_json = request.get_json()
+        tarefa = TarefaModel.find_by_id(tarefa_id)
+        if not tarefa:
+            return {"mensagem": TAREFA_NOT_FOUND}, 404
+
+        if tarefa:
+            try:
+                validate = tarefa_schema.validate(tarefa_json)
+                if validate:
+                    return validate, 400
+                else:
+                    tarefa.titulo = tarefa_json["titulo"]
+                    tarefa.descricao = tarefa_json["descricao"]
+                    tarefa.data_expiracao = tarefa_json["data_expiracao"]
+            except ValidationError as err:
+                return err.messages, 400
+        try:
+            tarefa.save_to_db()
+        except Exception as e:
+            print(e)
+        return tarefa_schema.dump(tarefa), 200
+
+
 
     @classmethod
     def delete(cls, tarefa_id: int):
