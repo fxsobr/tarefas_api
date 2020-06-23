@@ -21,9 +21,11 @@ def create_app(script_info=None):
 
     from sistema.api.resources.tarefa import tarefa_blueprint
     from sistema.api.resources.projeto import projeto_blueprint
+    from sistema.api.resources.funcionario import funcionario_blueprint
 
     app.register_blueprint(tarefa_blueprint)
     app.register_blueprint(projeto_blueprint)
+    app.register_blueprint(funcionario_blueprint)
 
     @app.shell_context_processor
     def ctx():

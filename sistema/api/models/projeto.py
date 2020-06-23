@@ -1,6 +1,7 @@
 from typing import List
 
 from sistema import db
+from sistema.api.models.funcionario import FuncionarioModel
 
 
 class ProjetoModel(db.Model):
