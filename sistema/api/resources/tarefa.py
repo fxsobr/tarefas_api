@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
+from sistema.api.models.projeto import ProjetoModel
 from sistema.api.models.tarefa import TarefaModel
 from sistema.api.schemas import tarefa
 from sistema.api.schemas.tarefa import TarefaSchema
@@ -12,6 +13,7 @@ api = Api(tarefa_blueprint)
 ERRO_INSERT = "Ocorreu um erro ao inserir a tarefa."
 TAREFA_NOT_FOUND = "Tarefa não encontrada."
 TAREFA_EXCLUIDA = "Tarefa excluída com sucesso."
+PROJETO_NOT_FOUND = "Projeto não encontrado."
 
 tarefa_schema = TarefaSchema()
 tarefa_list_schema = TarefaSchema(many=True)
@@ -21,8 +23,13 @@ class Tarefa(Resource):
     @classmethod
     def post(cls):
         tarefa_json = request.get_json()
+        print(tarefa_json)
+        projeto_tarefa = ProjetoModel.find_by_id(tarefa_json["projeto_id"])
+        if not projeto_tarefa:
+            return {"mensagem": PROJETO_NOT_FOUND}, 404
         try:
             tarefa = tarefa_schema.load(tarefa_json)
+            print(tarefa)
         except ValidationError as err:
             return err.messages, 400
 
@@ -58,6 +65,7 @@ class TarefaDetalhes(Resource):
                     tarefa.titulo = tarefa_json["titulo"]
                     tarefa.descricao = tarefa_json["descricao"]
                     tarefa.data_expiracao = tarefa_json["data_expiracao"]
+                    tarefa.projeto = tarefa_json["projeto"]
             except ValidationError as err:
                 return err.messages, 400
         try:
