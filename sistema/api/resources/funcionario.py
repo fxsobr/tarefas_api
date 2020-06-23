@@ -54,8 +54,18 @@ class FuncionarioDetalhes(Resource):
                 if validate:
                     return validate, 400
                 else:
-                    funcionario.titulo = funcionario_json["nome"]
-                    funcionario.descricao = funcionario_json["descricao"]
+                    funcionario.nome = funcionario_json["nome"]
+                    funcionario.cpf = funcionario_json["cpf"]
+                    funcionario.rg = funcionario_json["rg"]
+                    funcionario.data_nascimento = funcionario_json["data_nascimento"]
+                    funcionario.email = funcionario_json["email"]
+                    funcionario.telefone_celular = funcionario_json["telefone_celular"]
+                    funcionario.endereco_rua = funcionario_json["endereco_rua"]
+                    funcionario.endereco_bairro = funcionario_json["endereco_bairro"]
+                    funcionario.endereco_numero = funcionario_json["endereco_numero"]
+                    funcionario.endereco_cidade = funcionario_json["endereco_cidade"]
+                    funcionario.endereco_complemento = funcionario_json["endereco_complemento"]
+                    funcionario.endereco_cep = funcionario_json["endereco_cep"]
             except ValidationError as err:
                 return err.messages, 400
         try:
