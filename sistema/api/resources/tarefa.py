@@ -36,7 +36,7 @@ class Tarefa(Resource):
 class TarefaList(Resource):
     @classmethod
     def get(cls):
-        return "Olá Mundo", 200
+        return {"tarefas": tarefa_list_schema.dump(TarefaModel.find_all())}, 200
 
 
 api.add_resource(Tarefa, "/tarefa")
