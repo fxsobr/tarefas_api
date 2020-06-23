@@ -1,13 +1,10 @@
 from sistema import ma
-from sistema.api.models import tarefamodel
-from marshmallow import fields
+
+from sistema.api.models.tarefamodel import TarefaModel
 
 
 class TarefaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = tarefamodel.TarefaModel
-        fields = ("id", "titulo", "descricao", "data_expiracao")
+        model = TarefaModel
+        load_instance = True
 
-    titulo = fields.String(required=True)
-    descricao = fields.String(required=True)
-    data_expiracao = fields.Date(required=True)
