@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
+from sistema.api.helpers.paginacao import paginacao
 from sistema.api.models.projeto import ProjetoModel
 from sistema.api.schemas.projeto import ProjetoSchema
 
@@ -77,7 +78,7 @@ class ProjetoDetalhes(Resource):
 class ProjetoList(Resource):
     @classmethod
     def get(cls):
-        return {"projetos": projeto_list_schema.dump(ProjetoModel.find_all())}, 200
+        return paginacao(ProjetoModel, projeto_list_schema), 200
 
 
 api.add_resource(Projeto, "/projeto")

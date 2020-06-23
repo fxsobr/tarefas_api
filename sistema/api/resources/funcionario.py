@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
+from sistema.api.helpers.paginacao import paginacao
 from sistema.api.models.funcionario import FuncionarioModel
 from sistema.api.schemas.funcionario import FuncionarioSchema
 
@@ -89,10 +90,7 @@ class FuncionarioDetalhes(Resource):
 class FuncioarioList(Resource):
     @classmethod
     def get(cls):
-        return (
-            {"funcionarios": funcionario_list_schema.dump(FuncionarioModel.find_all())},
-            200,
-        )
+        return paginacao(FuncionarioModel, funcionario_list_schema), 200
 
 
 api.add_resource(Funcionario, "/funcionario")
