@@ -12,7 +12,7 @@ class FuncionarioModel(db.Model):
     rg = db.Column(db.String(20), nullable=False)
     data_nascimento = db.Column(db.Date, nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    telefone_celular = db.Column(db.Integer, nullable=False)
+    telefone_celular = db.Column(db.String(12), nullable=False)
     endereco_rua = db.Column(db.String(512), nullable=False)
     endereco_bairro = db.Column(db.String(50), nullable=False)
     endereco_numero = db.Column(db.Integer, nullable=False)
