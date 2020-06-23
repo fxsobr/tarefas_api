@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
-from sistema.api.models.tarefamodel import TarefaModel
+from sistema.api.models.tarefa import TarefaModel
 from sistema.api.schemas import tarefa
 from sistema.api.schemas.tarefa import TarefaSchema
 
@@ -65,8 +65,6 @@ class TarefaDetalhes(Resource):
         except Exception as e:
             print(e)
         return tarefa_schema.dump(tarefa), 200
-
-
 
     @classmethod
     def delete(cls, tarefa_id: int):

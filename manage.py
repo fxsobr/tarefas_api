@@ -3,11 +3,11 @@ import sys
 from flask.cli import FlaskGroup
 
 from sistema import create_app, db
-from sistema.api.models.tarefamodel import TarefaModel
+from sistema.api.models.tarefa import TarefaModel
 
 
 app = create_app()
-cli = FlaskGroup(create_app=create_app)  # new
+cli = FlaskGroup(create_app=create_app)
 
 
 @cli.command("recreate_db")
