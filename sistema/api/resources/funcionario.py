@@ -64,8 +64,10 @@ class FuncionarioDetalhes(Resource):
                     funcionario.endereco_bairro = funcionario_json["endereco_bairro"]
                     funcionario.endereco_numero = funcionario_json["endereco_numero"]
                     funcionario.endereco_cidade = funcionario_json["endereco_cidade"]
-                    funcionario.endereco_estado= funcionario_json["endereco_estado"]
-                    funcionario.endereco_complemento = funcionario_json["endereco_complemento"]
+                    funcionario.endereco_estado = funcionario_json["endereco_estado"]
+                    funcionario.endereco_complemento = funcionario_json[
+                        "endereco_complemento"
+                    ]
                     funcionario.endereco_cep = funcionario_json["endereco_cep"]
             except ValidationError as err:
                 return err.messages, 400
@@ -87,7 +89,10 @@ class FuncionarioDetalhes(Resource):
 class FuncioarioList(Resource):
     @classmethod
     def get(cls):
-        return {"funcionarios": funcionario_list_schema.dump(FuncionarioModel.find_all())}, 200
+        return (
+            {"funcionarios": funcionario_list_schema.dump(FuncionarioModel.find_all())},
+            200,
+        )
 
 
 api.add_resource(Funcionario, "/funcionario")

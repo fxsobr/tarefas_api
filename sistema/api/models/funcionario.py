@@ -21,6 +21,10 @@ class FuncionarioModel(db.Model):
     endereco_complemento = db.Column(db.String(50), nullable=False)
     endereco_cep = db.Column(db.Integer, nullable=False)
 
+    tarefa_id = db.Column(db.Integer, db.ForeignKey("tarefa.id"))
+    tarefa = db.relationship(
+        "TarefaModel", backref=db.backref("funcionarios", lazy="dynamic")
+    )
 
     @classmethod
     def find_all(cls) -> List["FuncionarioModel"]:

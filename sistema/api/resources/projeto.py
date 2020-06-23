@@ -23,6 +23,7 @@ class Projeto(Resource):
         try:
             projeto = projeto_schema.load(projeto_json)
         except ValidationError as err:
+            print(err)
             return err.messages, 400
 
         try:

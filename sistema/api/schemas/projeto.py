@@ -9,4 +9,6 @@ class ProjetoSchema(ma.SQLAlchemyAutoSchema):
     tarefas = ma.Nested(TarefaSchema, many=True)
     class Meta:
         model = ProjetoModel
+        dump_only = ("id",)
+        include_fk = True
         load_instance = True

@@ -1,7 +1,6 @@
 from typing import List
 
 from sistema import db
-from sistema.api.models.projeto import ProjetoModel
 
 
 class TarefaModel(db.Model):
@@ -13,7 +12,9 @@ class TarefaModel(db.Model):
     data_expiracao = db.Column(db.Date, nullable=False)
 
     projeto_id = db.Column(db.Integer, db.ForeignKey("projeto.id"))
-    projeto = db.relationship("ProjetoModel", backref=db.backref("tarefas", lazy="dynamic"))
+    projeto = db.relationship(
+        "ProjetoModel", backref=db.backref("tarefas", lazy="dynamic")
+    )
 
     @classmethod
     def find_all(cls) -> List["TarefaModel"]:
