@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
@@ -19,6 +20,7 @@ funcionario_list_schema = FuncionarioSchema(many=True)
 
 class Funcionario(Resource):
     @classmethod
+    @jwt_required
     def post(cls):
         funcionario_json = request.get_json()
         try:
@@ -36,6 +38,7 @@ class Funcionario(Resource):
 
 class FuncionarioDetalhes(Resource):
     @classmethod
+    @jwt_required
     def get(cls, funcionario_id: int):
         funcionario = FuncionarioModel.find_by_id(funcionario_id)
         if not funcionario:
@@ -43,6 +46,7 @@ class FuncionarioDetalhes(Resource):
         return funcionario_schema.dump(funcionario), 200
 
     @classmethod
+    @jwt_required
     def put(cls, funcionario_id: int):
         funcionario_json = request.get_json()
         funcionario = FuncionarioModel.find_by_id(funcionario_id)
@@ -79,6 +83,7 @@ class FuncionarioDetalhes(Resource):
         return funcionario_schema.dump(funcionario), 200
 
     @classmethod
+    @jwt_required
     def delete(cls, funcionario_id: int):
         funcionario = FuncionarioModel.find_by_id(funcionario_id)
         if not funcionario:
@@ -89,6 +94,7 @@ class FuncionarioDetalhes(Resource):
 
 class FuncioarioList(Resource):
     @classmethod
+    @jwt_required
     def get(cls):
         return paginacao(FuncionarioModel, funcionario_list_schema), 200
 
