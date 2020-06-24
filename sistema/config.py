@@ -15,10 +15,10 @@ class BaseConfig:
 class DevelopmentConfig(BaseConfig):
     TESTING = True
     DEBUG = True
-    SECRET_KEY = 'riodosul'
+    SECRET_KEY = "riodosul"
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_DEV_URL")
 
 
 class ProductionConfig(BaseConfig):
-    SECRET_KEY = 'riodosul'
+    SECRET_KEY = "riodosul"
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")

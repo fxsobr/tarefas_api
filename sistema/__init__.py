@@ -36,9 +36,7 @@ def create_app(script_info=None):
 
     @jwt.token_in_blacklist_loader
     def check_if_token_in_blacklist(decrypted_token):
-        return (
-                decrypted_token["jti"] in BLACKLIST
-        )
+        return decrypted_token["jti"] in BLACKLIST
 
     @app.shell_context_processor
     def ctx():
