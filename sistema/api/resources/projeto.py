@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
@@ -19,6 +20,7 @@ projeto_list_schema = ProjetoSchema(many=True)
 
 class Projeto(Resource):
     @classmethod
+    @jwt_required
     def post(cls):
         projeto_json = request.get_json()
         try:
@@ -37,6 +39,7 @@ class Projeto(Resource):
 
 class ProjetoDetalhes(Resource):
     @classmethod
+    @jwt_required
     def get(cls, projeto_id: int):
         projeto = ProjetoModel.find_by_id(projeto_id)
         if not projeto:
@@ -44,6 +47,7 @@ class ProjetoDetalhes(Resource):
         return projeto_schema.dump(projeto), 200
 
     @classmethod
+    @jwt_required
     def put(cls, projeto_id: int):
         projeto_json = request.get_json()
         projeto = ProjetoModel.find_by_id(projeto_id)
@@ -67,6 +71,7 @@ class ProjetoDetalhes(Resource):
         return projeto_schema.dump(projeto), 200
 
     @classmethod
+    @jwt_required
     def delete(cls, projeto_id: int):
         projeto = ProjetoModel.find_by_id(projeto_id)
         if not projeto:
@@ -77,6 +82,7 @@ class ProjetoDetalhes(Resource):
 
 class ProjetoList(Resource):
     @classmethod
+    @jwt_required
     def get(cls):
         return paginacao(ProjetoModel, projeto_list_schema), 200
 

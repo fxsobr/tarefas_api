@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api
 from marshmallow import ValidationError
 
@@ -22,6 +23,7 @@ tarefa_list_schema = TarefaSchema(many=True)
 
 class Tarefa(Resource):
     @classmethod
+    @jwt_required
     def post(cls):
         tarefa_json = request.get_json()
         print(tarefa_json)
@@ -44,6 +46,7 @@ class Tarefa(Resource):
 
 class TarefaDetalhes(Resource):
     @classmethod
+    @jwt_required
     def get(cls, tarefa_id: int):
         tarefa = TarefaModel.find_by_id(tarefa_id)
         if not tarefa:
@@ -76,6 +79,7 @@ class TarefaDetalhes(Resource):
         return tarefa_schema.dump(tarefa), 200
 
     @classmethod
+    @jwt_required
     def delete(cls, tarefa_id: int):
         tarefa = TarefaModel.find_by_id(tarefa_id)
         if not tarefa:
@@ -86,6 +90,7 @@ class TarefaDetalhes(Resource):
 
 class TarefaList(Resource):
     @classmethod
+    @jwt_required
     def get(cls):
         return paginacao(TarefaModel, tarefa_list_schema), 200
 
