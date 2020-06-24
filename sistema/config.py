@@ -12,7 +12,6 @@ class BaseConfig:
     ]
 
 
-
 class DevelopmentConfig(BaseConfig):
     TESTING = True
     DEBUG = True
@@ -21,4 +20,5 @@ class DevelopmentConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
+    SECRET_KEY = 'riodosul'
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
