@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 
+from sistema.api.helpers.blacklist import BLACKLIST
+
 db = SQLAlchemy()
 ma = Marshmallow()
 migrate = Migrate()
@@ -31,6 +33,12 @@ def create_app(script_info=None):
     app.register_blueprint(projeto_blueprint)
     app.register_blueprint(funcionario_blueprint)
     app.register_blueprint(usuario_blueprint)
+
+    @jwt.token_in_blacklist_loader
+    def check_if_token_in_blacklist(decrypted_token):
+        return (
+                decrypted_token["jti"] in BLACKLIST
+        )
 
     @app.shell_context_processor
     def ctx():
