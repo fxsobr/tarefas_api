@@ -12,3 +12,12 @@ class ProjetoSchema(ma.SQLAlchemyAutoSchema):
         dump_only = ("id",)
         include_fk = True
         load_instance = True
+
+    _links = ma.Hyperlinks(
+        {
+            "get": ma.URLFor("projeto.projetodetalhes", projeto_id="<id>"),
+            "put": ma.URLFor("projeto.projetodetalhes", projeto_id="<id>"),
+            "del": ma.URLFor("projeto.projetodetalhes", projeto_id="<id>"),
+        }
+    )
+

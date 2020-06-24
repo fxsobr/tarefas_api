@@ -12,3 +12,11 @@ class TarefaSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
         load_instance = True
 
+    _links = ma.Hyperlinks(
+        {
+            "get": ma.URLFor("tarefa.tarefadetalhes", tarefa_id="<id>"),
+            "put": ma.URLFor("tarefa.tarefadetalhes", tarefa_id="<id>"),
+            "del": ma.URLFor("tarefa.tarefadetalhes", tarefa_id="<id>"),
+        }
+    )
+
