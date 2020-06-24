@@ -6,6 +6,7 @@ from sistema.api.schemas.funcionario import FuncionarioSchema
 
 class TarefaSchema(ma.SQLAlchemyAutoSchema):
     funcionarios = ma.Nested(FuncionarioSchema, many=True)
+
     class Meta:
         model = TarefaModel
         dump_only = ("id",)
@@ -19,4 +20,3 @@ class TarefaSchema(ma.SQLAlchemyAutoSchema):
             "del": ma.URLFor("tarefa.tarefadetalhes", tarefa_id="<id>"),
         }
     )
-

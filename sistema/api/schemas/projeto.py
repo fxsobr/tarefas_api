@@ -7,6 +7,7 @@ from sistema.api.schemas.tarefa import TarefaSchema
 
 class ProjetoSchema(ma.SQLAlchemyAutoSchema):
     tarefas = ma.Nested(TarefaSchema, many=True)
+
     class Meta:
         model = ProjetoModel
         dump_only = ("id",)
@@ -20,4 +21,3 @@ class ProjetoSchema(ma.SQLAlchemyAutoSchema):
             "del": ma.URLFor("projeto.projetodetalhes", projeto_id="<id>"),
         }
     )
-
